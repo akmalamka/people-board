@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prepare": "simple-git-hooks",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -42,9 +41,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "pnpm eslint --fix"
-    ],
-    "*.vue": [
       "pnpm eslint --fix"
     ]
   },
