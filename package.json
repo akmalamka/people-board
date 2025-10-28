@@ -42,6 +42,9 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "pnpm eslint --fix"
+    ],
+    "*.vue": [
+      "pnpm eslint --fix"
     ]
   },
   "commitlint": {
