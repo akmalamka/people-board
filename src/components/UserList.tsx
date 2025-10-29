@@ -1,27 +1,32 @@
 /* eslint-disable no-console */
 import type { User } from '@/types/user'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import * as React from 'react'
+import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
 import UserCard from '@/components/UserCard'
+import UserDetailDialog from '@/components/UserDetailDialog'
 import { useUser } from '@/context/UserContext'
 
 export default function UserList() {
-  const { users, dispatch } = useUser()
+  const { users, dispatch, selectedUser } = useUser()
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
   const [userToDelete, setUserToDelete] = React.useState<User | null>(null)
 
+  const handleCloseDetail = () => {
+    dispatch({ type: 'CLEAR_SELECTION' })
+  }
+
   const handleView = (user: User) => {
+    // Select user to open the UserDetailDialog
     dispatch({ type: 'SELECT_USER', payload: user })
-    console.log(`User selected for view: ${user.name}`)
-    // TODO: add modal
   }
 
   const handleEdit = (user: User) => {
-    // For "Edit," you'd typically select the user and open an edit form
+    // Select user (for edit form) and close the detail dialog if it's open
     dispatch({ type: 'SELECT_USER', payload: user })
+    handleCloseDetail()
     console.log(`User selected for edit: ${user.name}`)
-    // This action could be used to populate an edit form state
   }
 
   const handleDelete = (user: User) => {
@@ -29,56 +34,19 @@ export default function UserList() {
     setOpenDeleteDialog(true)
   }
 
-  const handleClose = () => {
+  const handleCloseDelete = () => {
     setOpenDeleteDialog(false)
     setUserToDelete(null)
   }
 
   const handleConfirmDelete = () => {
     if (userToDelete) {
-      // Dispatch the context action only after user confirmation
       dispatch({ type: 'DELETE_USER', payload: userToDelete.id })
+      console.log(`User deleted: ${userToDelete.name}`)
     }
-    handleClose()
+    handleCloseDelete()
   }
 
-  const DeleteConfirmationDialog = (
-    <Dialog
-      open={openDeleteDialog}
-      onClose={handleClose}
-      aria-labelledby="delete-dialog-title"
-      aria-describedby="delete-dialog-description"
-    >
-      <DialogTitle id="delete-dialog-title">
-        Confirm Deletion
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="delete-dialog-description">
-          Are you sure you want to delete user
-          {' '}
-          <strong>
-            {userToDelete?.name}
-          </strong>
-          ? This action cannot be undone.
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary" variant="outlined">
-          Cancel
-        </Button>
-        <Button
-          onClick={handleConfirmDelete}
-          color="error"
-          variant="contained"
-          autoFocus // Focus the destructive action button for better UX/a11y
-        >
-          Delete
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-
-  // --- Component Rendering ---
   return (
     <>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -94,7 +62,19 @@ export default function UserList() {
         ))}
       </Grid>
 
-      {DeleteConfirmationDialog}
+      <UserDetailDialog
+        user={selectedUser}
+        open={Boolean(selectedUser)}
+        onClose={handleCloseDetail}
+        onEdit={handleEdit}
+      />
+
+      <DeleteConfirmationDialog
+        user={userToDelete}
+        open={openDeleteDialog}
+        onClose={handleCloseDelete}
+        onConfirm={handleConfirmDelete}
+      />
     </>
   )
 }
