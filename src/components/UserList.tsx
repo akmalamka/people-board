@@ -7,7 +7,11 @@ import UserDetailDialog from '@/components/UserDetailDialog'
 import { useToast } from '@/context/toastContext'
 import { useUser } from '@/context/userContext'
 
-export default function UserList() {
+interface UserListProps {
+  onEditClick: (user: User) => void
+}
+
+export default function UserList({ onEditClick }: UserListProps) {
   const { users, dispatch, selectedUser } = useUser()
   const { showToast } = useToast()
 
@@ -19,15 +23,13 @@ export default function UserList() {
   }
 
   const handleView = (user: User) => {
-    // Select user to open the UserDetailDialog
     dispatch({ type: 'SELECT_USER', payload: user })
   }
 
   const handleEdit = (user: User) => {
-    // Select user (for edit form) and close the detail dialog if it's open
-    // TODO: Edit user
-    dispatch({ type: 'SELECT_USER', payload: user })
-    handleCloseDetail()
+    onEditClick(user)
+
+    dispatch({ type: 'CLEAR_SELECTION' })
   }
 
   const handleDelete = (user: User) => {

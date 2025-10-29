@@ -1,18 +1,18 @@
 export interface Address {
-  street?: string
-  suite?: string
-  city?: string
-  zipcode?: string
+  street?: string | null
+  suite?: string | null
+  city?: string | null
+  zipcode?: string | null
 }
 
 export interface User {
   id: number
   name: string
-  username?: string
+  username?: string | null
   image: string
   email: string
   address?: Address
   phone: string
-  website?: string
-  companyName?: string
+  website?: string | null
+  companyName?: string | null
 }

@@ -1,31 +1,11 @@
-import type { AddUserFormData } from '@/schemas/userFormSchema'
 import { PersonAdd } from '@mui/icons-material'
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-import { useState } from 'react'
-import { useToast } from '@/context/toastContext'
-import { useUser } from '@/context/userContext'
-import AddUserDialog from './AddUserDialog'
 
-export default function Navbar() {
-  const { dispatch } = useUser()
+interface NavbarProps {
+  onAddClick: () => void
+}
 
-  const [openAddDialog, setOpenAddDialog] = useState(false)
-  const { showToast } = useToast()
-
-  const handleOpenAddDialog = () => {
-    setOpenAddDialog(true)
-  }
-
-  const handleCloseAddDialog = () => {
-    setOpenAddDialog(false)
-  }
-
-  const handleSaveNewUser = (userData: AddUserFormData) => {
-    dispatch({ type: 'ADD_USER', payload: userData })
-    handleCloseAddDialog()
-    // Show success toast
-    showToast(`User "${userData.name}" added successfully!`, 'success')
-  }
+export default function Navbar({ onAddClick }: NavbarProps) {
   return (
     <>
       <AppBar
@@ -57,7 +37,7 @@ export default function Navbar() {
             variant="contained"
             color="primary"
             startIcon={<PersonAdd />}
-            onClick={handleOpenAddDialog}
+            onClick={onAddClick}
             sx={{
               borderRadius: 2,
               fontWeight: 600,
@@ -68,13 +48,6 @@ export default function Navbar() {
           </Button>
         </Toolbar>
       </AppBar>
-
-      <AddUserDialog
-        open={openAddDialog}
-        onClose={handleCloseAddDialog}
-        onSave={handleSaveNewUser}
-      />
     </>
-
   )
 }

@@ -1,4 +1,5 @@
 import type { AddUserFormData } from '@/schemas/userFormSchema'
+import type { User } from '@/types/user'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Box,
@@ -10,31 +11,62 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { addUserSchema } from '@/schemas/userFormSchema'
 
-interface AddUserDialogProps {
-  open: boolean
-  onClose: () => void
-  onSave: (data: AddUserFormData) => void
-}
-
 const defaultValues = {
   name: '',
-  username: '',
+  username: null,
   email: '',
   phone: '',
-  website: '',
-  companyName: '',
+  website: null,
+  companyName: null,
   address: {
-    street: '',
-    suite: '',
-    city: '',
-    zipcode: '',
+    street: null,
+    suite: null,
+    city: null,
+    zipcode: null,
   },
 }
 
-export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogProps) {
+interface UserFormDialogProps {
+  open: boolean
+  onClose: () => void
+  // onSave now accepts an optional ID for edit mode
+  onSave: (data: AddUserFormData, id?: number) => void
+  // Optional user object signals EDIT mode
+  userToEdit?: User | null
+}
+
+function getInitialFormValues(user?: User | null) {
+  if (!user)
+    return defaultValues
+
+  return {
+    name: user.name,
+    username: user.username ?? null,
+    email: user.email,
+    phone: user.phone,
+    website: user.website ?? null,
+    companyName: user.companyName ?? null,
+    address: user.address
+      ? {
+          street: user.address.street ?? null,
+          suite: user.address.suite ?? null,
+          city: user.address.city ?? null,
+          zipcode: user.address.zipcode ?? null,
+        }
+      : defaultValues.address,
+  }
+}
+
+export default function UserFormDialog({ open, onClose, onSave, userToEdit }: UserFormDialogProps) {
+  // Determine the mode and content
+  const isEditMode = !!userToEdit
+  const dialogTitle = isEditMode ? 'Edit User Details' : 'Add New User'
+  const buttonText = isEditMode ? 'Save Changes' : 'Add User'
+
   const {
     control,
     handleSubmit,
@@ -42,18 +74,26 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     resolver: yupResolver(addUserSchema),
-    defaultValues,
+    defaultValues: getInitialFormValues(userToEdit),
     mode: 'onBlur',
   })
 
+  // Ensure the form resets whenever the dialog opens or the userToEdit changes
+  useEffect(() => {
+    if (open) {
+      // Reset to the current userToEdit state (or default values if adding)
+      reset(getInitialFormValues(userToEdit))
+    }
+  }, [userToEdit, open, reset])
+
   const onSubmit = (data: AddUserFormData) => {
-    onSave(data)
-    reset(defaultValues)
+    // Pass the data and the user ID (if editing) to the onSave handler
+    onSave(data, userToEdit?.id)
     onClose()
   }
 
   const handleClose = () => {
-    reset(defaultValues)
+    reset(getInitialFormValues(userToEdit)) // Reset form state before closing
     onClose()
   }
 
@@ -66,7 +106,8 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <DialogTitle>Add New User</DialogTitle>
+      <DialogTitle>{dialogTitle}</DialogTitle>
+      {' '}
       <DialogContent dividers>
         <Box display="flex" flexDirection="column" gap={2}>
 
@@ -95,6 +136,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             render={({ field }) => (
               <TextField
                 {...field}
+                value={field.value ?? ''}
                 label="Username"
                 fullWidth
                 error={!!errors.username}
@@ -109,7 +151,6 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             render={({ field }) => (
               <TextField
                 {...field}
-
                 label="Email"
                 type="email"
                 required
@@ -141,6 +182,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             render={({ field }) => (
               <TextField
                 {...field}
+                value={field.value ?? ''}
                 label="Website"
                 fullWidth
                 error={!!errors.website}
@@ -159,6 +201,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             render={({ field }) => (
               <TextField
                 {...field}
+                value={field.value ?? ''}
                 label="Street"
                 fullWidth
                 error={!!errors.address?.street}
@@ -172,6 +215,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             render={({ field }) => (
               <TextField
                 {...field}
+                value={field.value ?? ''}
                 label="Suite"
                 fullWidth
                 error={!!errors.address?.suite}
@@ -187,6 +231,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
               render={({ field }) => (
                 <TextField
                   {...field}
+                  value={field.value ?? ''}
                   label="City"
                   fullWidth
                   error={!!errors.address?.city}
@@ -200,6 +245,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
               render={({ field }) => (
                 <TextField
                   {...field}
+                  value={field.value ?? ''}
                   label="Zipcode"
                   fullWidth
                   error={!!errors.address?.zipcode}
@@ -209,7 +255,6 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             />
           </Box>
 
-          {/* Company Details (Optional) */}
           <Typography variant="subtitle1" fontWeight="bold" mt={2}>
             Company Details (Optional)
           </Typography>
@@ -220,6 +265,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
             render={({ field }) => (
               <TextField
                 {...field}
+                value={field.value ?? ''}
                 label="Company Name"
                 fullWidth
                 error={!!errors.companyName}
@@ -244,7 +290,7 @@ export default function AddUserDialog({ open, onClose, onSave }: AddUserDialogPr
           variant="contained"
           disabled={isSubmitting || !isValid}
         >
-          Add User
+          {buttonText}
         </Button>
       </DialogActions>
     </Dialog>
