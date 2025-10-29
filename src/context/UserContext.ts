@@ -1,5 +1,5 @@
 import type { User } from '@/types/user'
-import * as React from 'react'
+import { createContext, use } from 'react'
 
 export interface UserState {
   users: User[]
@@ -25,7 +25,7 @@ export const initialUserState: UserState = {
 }
 
 // Using 'undefined' as default value forces consumers to be wrapped in the Provider
-export const UserContext = React.createContext<UserContextProps | undefined>(undefined)
+export const UserContext = createContext<UserContextProps | undefined>(undefined)
 
 // Helper function to generate a unique ID for new users
 function getNextId(users: User[]): number {
@@ -83,7 +83,7 @@ export function userReducer(state: UserState, action: UserAction): UserState {
 
 // Custom Hook for Context Consumption
 export function useUser() {
-  const context = React.use(UserContext)
+  const context = use(UserContext)
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider')
   }

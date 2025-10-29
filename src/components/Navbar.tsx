@@ -24,7 +24,7 @@ export default function Navbar() {
               color: 'primary.main',
             }}
           >
-            Bite of Appetite
+            PeopleBoard
           </Typography>
         </Box>
 

@@ -1,17 +1,19 @@
 /* eslint-disable no-console */
 import type { User } from '@/types/user'
 import { Grid } from '@mui/material'
-import * as React from 'react'
+import { useState } from 'react'
 import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
 import UserCard from '@/components/UserCard'
 import UserDetailDialog from '@/components/UserDetailDialog'
+import { useToast } from '@/context/ToastContext'
 import { useUser } from '@/context/UserContext'
 
 export default function UserList() {
   const { users, dispatch, selectedUser } = useUser()
+  const { showToast } = useToast()
 
-  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
-  const [userToDelete, setUserToDelete] = React.useState<User | null>(null)
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+  const [userToDelete, setUserToDelete] = useState<User | null>(null)
 
   const handleCloseDetail = () => {
     dispatch({ type: 'CLEAR_SELECTION' })
@@ -41,8 +43,9 @@ export default function UserList() {
 
   const handleConfirmDelete = () => {
     if (userToDelete) {
+      const deletedName = userToDelete.name
       dispatch({ type: 'DELETE_USER', payload: userToDelete.id })
-      console.log(`User deleted: ${userToDelete.name}`)
+      showToast(`User "${deletedName}" has been deleted.`, 'success')
     }
     handleCloseDelete()
   }

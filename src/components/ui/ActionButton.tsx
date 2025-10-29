@@ -1,10 +1,10 @@
 import type { ButtonProps } from '@mui/material/Button'
+import type { ReactNode } from 'react'
 import Button from '@mui/material/Button'
-import * as React from 'react'
 
 interface ActionButtonProps extends ButtonProps {
   label: string
-  icon: React.ReactNode
+  icon: ReactNode
 }
 
 /**
