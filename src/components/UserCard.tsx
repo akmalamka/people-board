@@ -15,12 +15,7 @@ interface UserCardProps {
 export default function UserCard({ user, onView, onEdit, onDelete }: UserCardProps) {
   return (
     <Card
-      className="flex flex-col items-center shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-200"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
+      className="flex flex-col items-center justify-between shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-200"
     >
       <CardMedia
         component="img"
@@ -34,7 +29,16 @@ export default function UserCard({ user, onView, onEdit, onDelete }: UserCardPro
       />
 
       <CardContent className="flex flex-col items-center text-center">
-        <Typography variant="h6" fontWeight={600} className="truncate">
+        <Typography
+          variant="h6"
+          fontWeight={600}
+          sx={{
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            maxWidth: '95%',
+          }}
+        >
           {user.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
