@@ -1,11 +1,11 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 import SatoshiBlack from '@/assets/fonts/Satoshi-Black.woff2'
 import SatoshiBold from '@/assets/fonts/Satoshi-Bold.woff2'
 import SatoshiLight from '@/assets/fonts/Satoshi-Light.woff2'
 import SatoshiMedium from '@/assets/fonts/Satoshi-Medium.woff2'
 import SatoshiRegular from '@/assets/fonts/Satoshi-Regular.woff2'
 
-const theme = createTheme({
+const baseTheme = createTheme({
   palette: {
     mode: 'light', // light theme only
     primary: {
@@ -93,4 +93,5 @@ const theme = createTheme({
   },
 })
 
+const theme = responsiveFontSizes(baseTheme)
 export default theme
