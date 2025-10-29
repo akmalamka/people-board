@@ -51,17 +51,9 @@ export default function UserDetailDialog({ user, open, onClose, onEdit }: UserDe
           </Typography>
 
           <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold' }}>
-            Company:
-          </Typography>
-          <Typography variant="body2">
-            Name:
+            Company Name:
             {' '}
-            {user.company?.name}
-          </Typography>
-          <Typography variant="body2">
-            Slogan:
-            {' '}
-            {user.company?.catchPhrase}
+            {user.companyName}
           </Typography>
 
           <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold' }}>
