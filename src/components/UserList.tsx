@@ -1,12 +1,11 @@
-/* eslint-disable no-console */
 import type { User } from '@/types/user'
 import { Grid } from '@mui/material'
 import { useState } from 'react'
 import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
 import UserCard from '@/components/UserCard'
 import UserDetailDialog from '@/components/UserDetailDialog'
-import { useToast } from '@/context/ToastContext'
-import { useUser } from '@/context/UserContext'
+import { useToast } from '@/context/toastContext'
+import { useUser } from '@/context/userContext'
 
 export default function UserList() {
   const { users, dispatch, selectedUser } = useUser()
@@ -26,9 +25,9 @@ export default function UserList() {
 
   const handleEdit = (user: User) => {
     // Select user (for edit form) and close the detail dialog if it's open
+    // TODO: Edit user
     dispatch({ type: 'SELECT_USER', payload: user })
     handleCloseDetail()
-    console.log(`User selected for edit: ${user.name}`)
   }
 
   const handleDelete = (user: User) => {

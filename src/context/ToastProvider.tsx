@@ -1,9 +1,9 @@
 import type { AlertColor } from '@mui/material/Alert'
 import type { FC } from 'react'
-import type { ToastState } from './ToastContext'
+import type { ToastState } from './toastContext'
 import { Alert, Snackbar } from '@mui/material'
 import { useCallback, useMemo, useState } from 'react'
-import { initialToastState, ToastContext } from './ToastContext'
+import { initialToastState, ToastContext } from './toastContext'
 
 interface ToastProviderProps {
   children: React.ReactNode

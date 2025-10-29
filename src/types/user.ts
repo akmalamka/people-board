@@ -1,8 +1,8 @@
 export interface Address {
-  street: string
-  suite: string
-  city: string
-  zipcode: string
+  street?: string
+  suite?: string
+  city?: string
+  zipcode?: string
 }
 
 export interface User {
@@ -13,6 +13,6 @@ export interface User {
   email: string
   address?: Address
   phone: string
-  website: string
+  website?: string
   companyName?: string
 }

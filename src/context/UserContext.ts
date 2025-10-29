@@ -10,7 +10,7 @@ export type UserAction
   = | { type: 'SET_USERS', payload: User[] }
     | { type: 'SELECT_USER', payload: User }
     | { type: 'CLEAR_SELECTION' }
-    | { type: 'ADD_USER', payload: Omit<User, 'id'> } // New user doesn't have an ID yet
+    | { type: 'ADD_USER', payload: Omit<User, 'id' | 'image'> } // New user doesn't have an ID yet, and image generated randomly
     | { type: 'EDIT_USER', payload: User }
     | { type: 'DELETE_USER', payload: number } // Payload is the User ID
 
@@ -45,9 +45,12 @@ export function userReducer(state: UserState, action: UserAction): UserState {
       return { ...state, selectedUser: null }
 
     case 'ADD_USER': {
+      const newId = getNextId(state.users)// Assign a new ID
       const newUser = {
         ...action.payload,
-        id: getNextId(state.users), // Assign a new ID
+        id: newId,
+        image: `https://picsum.photos/seed/${newId}/200/300.webp`,
+
       } as User
       return {
         ...state,

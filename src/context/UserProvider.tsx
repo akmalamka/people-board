@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import type { User } from '@/types/user'
 import { useEffect, useMemo, useReducer } from 'react'
 import initialUsers from '@/constants/users.json'
-import { initialUserState, UserContext, userReducer } from './UserContext'
+import { initialUserState, UserContext, userReducer } from './userContext'
 
 interface UserProviderProps {
   children: React.ReactNode
