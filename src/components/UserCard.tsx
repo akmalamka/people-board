@@ -1,19 +1,30 @@
 import type { User } from '@/types/user'
-import { Card, CardContent, CardMedia, Typography } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { Card, CardActions, CardContent, CardMedia, Stack, Typography } from '@mui/material'
+import ActionButton from '@/components/ui/ActionButton'
 
 interface UserCardProps {
   user: User
+  onView?: (user: User) => void
+  onEdit?: (user: User) => void
+  onDelete?: (user: User) => void
 }
-
-export default function UserCard({ user }: UserCardProps) {
+// TODO: convert to styled components
+export default function UserCard({ user, onView, onEdit, onDelete }: UserCardProps) {
   return (
     <Card
       className="flex flex-col items-center shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-200"
-      sx={{ height: 320 }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
     >
       <CardMedia
         component="img"
-        image={user.image}
+        image={user.image || '/placeholder.jpg'}
         alt={user.name}
         sx={{
           height: 180,
@@ -23,7 +34,7 @@ export default function UserCard({ user }: UserCardProps) {
       />
 
       <CardContent className="flex flex-col items-center text-center">
-        <Typography variant="h6" fontWeight={600}>
+        <Typography variant="h6" fontWeight={600} className="truncate">
           {user.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -33,6 +44,24 @@ export default function UserCard({ user }: UserCardProps) {
           {user.company?.name}
         </Typography>
       </CardContent>
+
+      <CardActions
+        sx={{
+          p: 1,
+          width: '100%',
+          justifyContent: 'center',
+        }}
+      >
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          sx={{ width: '100%' }}
+          className=" flex flex-wrap gap-2"
+        >
+          <ActionButton label="View" icon={<VisibilityIcon />} color="primary" sx={{ flexGrow: 1 }} onClick={() => onView?.(user)} />
+          <ActionButton label="Edit" icon={<EditIcon />} color="secondary" sx={{ flexGrow: 1 }} onClick={() => onEdit?.(user)} />
+          <ActionButton label="Delete" icon={<DeleteIcon />} color="error" sx={{ flexGrow: { xs: 1, md: 2 } }} onClick={() => onDelete?.(user)} />
+        </Stack>
+      </CardActions>
     </Card>
   )
 }
