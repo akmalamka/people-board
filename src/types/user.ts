@@ -6,7 +6,7 @@ export interface Address {
 }
 
 export interface User {
-  id: number
+  _id: string
   name: string
   username?: string | null
   image: string

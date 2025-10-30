@@ -1,7 +1,8 @@
 import type { FC } from 'react'
 import type { User } from '@/types/user'
-import { useEffect, useMemo, useReducer } from 'react'
-import initialUsers from '@/constants/users.json'
+import { useCallback, useEffect, useMemo, useReducer } from 'react'
+import { USERS_API_ENDPOINT } from '@/constants/api'
+import { useToast } from './toastContext'
 import { initialUserState, UserContext, userReducer } from './userContext'
 
 interface UserProviderProps {
@@ -10,12 +11,36 @@ interface UserProviderProps {
 
 export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialUserState)
+  const { showToast } = useToast()
 
-  // Load initial users once when the component mounts
+  const fetchInitialUsers = useCallback(async () => {
+    dispatch({ type: 'SET_LOADING', payload: true })
+    try {
+      const response = await fetch(USERS_API_ENDPOINT)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+
+      const apiUsers = await response.json() as User[]
+
+      dispatch({ type: 'SET_USERS', payload: apiUsers })
+      showToast('Success')
+    }
+    catch (error) {
+      console.error('Failed to fetch initial users:', error)
+      showToast('Error loading users. Please check API.', 'error')
+    }
+    finally {
+      // Ensure loading state is turned off even if the fetch fails
+      dispatch({ type: 'SET_LOADING', payload: false })
+    }
+  }, [showToast])
+
   useEffect(() => {
-    // Dispatch an action to load the initial user data from the JSON file
-    dispatch({ type: 'SET_USERS', payload: initialUsers as User[] })
-  }, [])
+    // TODO: check in production if the fetch is being called once or twice
+    fetchInitialUsers()
+  }, [fetchInitialUsers])
 
   // The context value bundles the state and the dispatch function
   const contextValue = useMemo(() => ({

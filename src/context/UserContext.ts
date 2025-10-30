@@ -4,17 +4,18 @@ import { createContext, use } from 'react'
 export interface UserState {
   users: User[]
   selectedUser: User | null
+  loading: boolean
 }
 
 export type UserAction
   = | { type: 'SET_USERS', payload: User[] }
+    | { type: 'SET_LOADING', payload: boolean }
     | { type: 'SELECT_USER', payload: User }
     | { type: 'CLEAR_SELECTION' }
-    | { type: 'ADD_USER', payload: Omit<User, 'id' | 'image'> } // New user doesn't have an ID yet, and image generated randomly
+    | { type: 'ADD_USER', payload: User }
     | { type: 'EDIT_USER', payload: User }
-    | { type: 'DELETE_USER', payload: number } // Payload is the User ID
+    | { type: 'DELETE_USER', payload: { _id: string } }
 
-// This is what the component consumes (State + Dispatch function)
 export interface UserContextProps extends UserState {
   dispatch: React.Dispatch<UserAction>
 }
@@ -22,21 +23,19 @@ export interface UserContextProps extends UserState {
 export const initialUserState: UserState = {
   users: [],
   selectedUser: null,
+  loading: false,
 }
 
 // Using 'undefined' as default value forces consumers to be wrapped in the Provider
 export const UserContext = createContext<UserContextProps | undefined>(undefined)
 
-// Helper function to generate a unique ID for new users
-function getNextId(users: User[]): number {
-  const maxId = users.reduce((max, user) => (user.id > max ? user.id : max), 0)
-  return maxId + 1
-}
-
 export function userReducer(state: UserState, action: UserAction): UserState {
   switch (action.type) {
     case 'SET_USERS':
-      return { ...state, users: action.payload }
+      return { ...state, users: action.payload, loading: false }
+
+    case 'SET_LOADING':
+      return { ...state, loading: action.payload }
 
     case 'SELECT_USER':
       return { ...state, selectedUser: action.payload }
@@ -45,16 +44,9 @@ export function userReducer(state: UserState, action: UserAction): UserState {
       return { ...state, selectedUser: null }
 
     case 'ADD_USER': {
-      const newId = getNextId(state.users)// Assign a new ID
-      const newUser = {
-        ...action.payload,
-        id: newId,
-        image: `https://picsum.photos/seed/${newId}/200/300.webp`,
-
-      } as User
       return {
         ...state,
-        users: [...state.users, newUser],
+        users: [action.payload, ...state.users],
       }
     }
 
@@ -62,20 +54,18 @@ export function userReducer(state: UserState, action: UserAction): UserState {
       return {
         ...state,
         users: state.users.map(user =>
-          user.id === action.payload.id ? action.payload : user,
+          user._id === action.payload._id ? action.payload : user,
         ),
-        // Clear selection if the edited user was selected
-        selectedUser: state.selectedUser?.id === action.payload.id ? action.payload : state.selectedUser,
+        selectedUser: state.selectedUser?._id === action.payload._id ? action.payload : state.selectedUser,
       }
     }
 
     case 'DELETE_USER': {
-      const userIdToDelete = action.payload
+      const userIdToDelete = action.payload._id
       return {
         ...state,
-        users: state.users.filter(user => user.id !== userIdToDelete),
-        // Clear selection if the deleted user was selected
-        selectedUser: state.selectedUser?.id === userIdToDelete ? null : state.selectedUser,
+        users: state.users.filter(user => user._id !== userIdToDelete),
+        selectedUser: state.selectedUser?._id === userIdToDelete ? null : state.selectedUser,
       }
     }
 

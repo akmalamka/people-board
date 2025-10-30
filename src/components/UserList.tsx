@@ -45,7 +45,7 @@ export default function UserList({ onEditClick }: UserListProps) {
   const handleConfirmDelete = () => {
     if (userToDelete) {
       const deletedName = userToDelete.name
-      dispatch({ type: 'DELETE_USER', payload: userToDelete.id })
+      dispatch({ type: 'DELETE_USER', payload: userToDelete._id })
       showToast(`User "${deletedName}" has been deleted.`, 'success')
     }
     handleCloseDelete()
@@ -55,7 +55,7 @@ export default function UserList({ onEditClick }: UserListProps) {
     <>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {users.map((user: User) => (
-          <Grid key={user.id} size={{ xs: 4, sm: 4, md: 3 }}>
+          <Grid key={user._id} size={{ xs: 4, sm: 4, md: 3 }}>
             <UserCard
               user={user}
               onView={handleView}
