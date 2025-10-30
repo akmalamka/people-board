@@ -31,11 +31,10 @@ export default function App() {
     setCurrentUserToEdit(null) // Clear user upon close
   }
 
-  const handleSaveUser = (userData: AddUserFormData, id?: number) => {
-    if (id) {
+  const handleSaveUser = (userData: AddUserFormData, _id?: string) => {
+    if (_id) {
       // EDIT MODE
-      // TODO: add current image of the user
-      dispatch({ type: 'EDIT_USER', payload: { ...userData, id } as User })
+      dispatch({ type: 'EDIT_USER', payload: { ...userData, _id } as User })
       showToast(`User "${userData.name}" updated successfully!`, 'success')
     }
     else {

@@ -1,3 +1,4 @@
+import type { AddUserFormData } from '@/schemas/userFormSchema'
 import type { User } from '@/types/user'
 import { createContext, use } from 'react'
 
@@ -12,9 +13,9 @@ export type UserAction
     | { type: 'SET_LOADING', payload: boolean }
     | { type: 'SELECT_USER', payload: User }
     | { type: 'CLEAR_SELECTION' }
-    | { type: 'ADD_USER', payload: User }
+    | { type: 'ADD_USER', payload: AddUserFormData }
     | { type: 'EDIT_USER', payload: User }
-    | { type: 'DELETE_USER', payload: { _id: string } }
+    | { type: 'DELETE_USER', payload: string } // id of the user to be deleted
 
 export interface UserContextProps extends UserState {
   dispatch: React.Dispatch<UserAction>
@@ -44,9 +45,14 @@ export function userReducer(state: UserState, action: UserAction): UserState {
       return { ...state, selectedUser: null }
 
     case 'ADD_USER': {
+      const newUser = {
+        ...action.payload,
+        image: `https://picsum.photos/seed/200/300.webp`,
+
+      } as User
       return {
         ...state,
-        users: [action.payload, ...state.users],
+        users: [...state.users, newUser],
       }
     }
 
@@ -61,7 +67,7 @@ export function userReducer(state: UserState, action: UserAction): UserState {
     }
 
     case 'DELETE_USER': {
-      const userIdToDelete = action.payload._id
+      const userIdToDelete = action.payload
       return {
         ...state,
         users: state.users.filter(user => user._id !== userIdToDelete),

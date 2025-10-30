@@ -22,4 +22,4 @@ export const addUserSchema = yup.object({
 
 // Infer the TypeScript type from the Yup schema for easy typing
 // TODO: change AddUserFormData to UserFormData
-export type AddUserFormData = Omit<User, 'id' | 'image'>
+export type AddUserFormData = Omit<User, '_id' | 'image'>

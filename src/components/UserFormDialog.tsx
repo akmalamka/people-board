@@ -33,8 +33,7 @@ const defaultValues = {
 interface UserFormDialogProps {
   open: boolean
   onClose: () => void
-  // onSave now accepts an optional ID for edit mode
-  onSave: (data: AddUserFormData, id?: number) => void
+  onSave: (data: AddUserFormData, id?: string) => void
   // Optional user object signals EDIT mode
   userToEdit?: User | null
 }
@@ -88,7 +87,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
 
   const onSubmit = (data: AddUserFormData) => {
     // Pass the data and the user ID (if editing) to the onSave handler
-    onSave(data, userToEdit?.id)
+    onSave(data, userToEdit?._id)
     onClose()
   }
 
