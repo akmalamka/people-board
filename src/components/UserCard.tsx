@@ -15,7 +15,7 @@ interface UserCardProps {
 export default function UserCard({ user, onView, onEdit, onDelete }: UserCardProps) {
   return (
     <Card
-      className="flex flex-col items-center justify-between shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-200"
+      className="flex flex-col items-center justify-between shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-200 h-full"
     >
       <CardMedia
         component="img"

@@ -30,6 +30,10 @@ export const initialUserState: UserState = {
 // Using 'undefined' as default value forces consumers to be wrapped in the Provider
 export const UserContext = createContext<UserContextProps | undefined>(undefined)
 
+function getUniqueId(): string {
+  return crypto.randomUUID()
+}
+
 // Helper function to generate a simple numeric ID for PICSUM seed only. We'll use a random number for the seed to keep things simple and unique.
 function getRandomImageSeed(): number {
   return Math.floor(Math.random() * 100000)
@@ -50,10 +54,14 @@ export function userReducer(state: UserState, action: UserAction): UserState {
       return { ...state, selectedUser: null }
 
     case 'ADD_USER': {
+      // Since we don't have to post the data to API, we need to add uniqueId for new user
+      const newIdString = getUniqueId()
+
       const imageSeed = getRandomImageSeed()
 
       const newUser: User = {
         ...action.payload,
+        _id: newIdString,
         image: `https://picsum.photos/seed/${imageSeed}/200/300.webp`,
       } as User
 

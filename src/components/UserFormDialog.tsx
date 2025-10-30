@@ -274,7 +274,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
           />
 
           <Typography variant="body2" color="text.secondary" mt={2}>
-            *Profile image will be set to a static, unique placeholder based on the new user's ID.*
+            *Upon adding new user, profile image will be set to a static, unique and random placeholder*
           </Typography>
 
         </Box>

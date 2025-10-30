@@ -31,9 +31,9 @@ export default function App() {
   }
 
   const handleSaveUser = (userData: UserFormData, _id?: string) => {
-    if (_id) {
+    if (_id && currentUserToEdit) {
       // EDIT MODE
-      dispatch({ type: 'EDIT_USER', payload: { ...userData, _id } as User })
+      dispatch({ type: 'EDIT_USER', payload: { ...userData, _id, image: currentUserToEdit.image } as User })
       showToast(`User "${userData.name}" updated successfully!`, 'success')
     }
     else {
