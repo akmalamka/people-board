@@ -1,4 +1,4 @@
-import type { AddUserFormData } from '@/schemas/userFormSchema'
+import type { UserFormData } from '@/schemas/userFormSchema'
 import type { User } from '@/types/user'
 import { createContext, use } from 'react'
 
@@ -13,7 +13,7 @@ export type UserAction
     | { type: 'SET_LOADING', payload: boolean }
     | { type: 'SELECT_USER', payload: User }
     | { type: 'CLEAR_SELECTION' }
-    | { type: 'ADD_USER', payload: AddUserFormData }
+    | { type: 'ADD_USER', payload: UserFormData }
     | { type: 'EDIT_USER', payload: User }
     | { type: 'DELETE_USER', payload: string } // _id of the user to be deleted
 

@@ -37,7 +37,6 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   }, [showToast])
 
   useEffect(() => {
-    // TODO: check in production if the fetch is being called once or twice
     fetchInitialUsers()
   }, [fetchInitialUsers])
 

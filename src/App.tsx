@@ -1,4 +1,4 @@
-import type { AddUserFormData } from '@/schemas/userFormSchema'
+import type { UserFormData } from '@/schemas/userFormSchema'
 import type { User } from '@/types/user'
 import { Box, Container, LinearProgress, Typography } from '@mui/material'
 import { useState } from 'react'
@@ -30,7 +30,7 @@ export default function App() {
     setCurrentUserToEdit(null) // Clear user upon close
   }
 
-  const handleSaveUser = (userData: AddUserFormData, _id?: string) => {
+  const handleSaveUser = (userData: UserFormData, _id?: string) => {
     if (_id) {
       // EDIT MODE
       dispatch({ type: 'EDIT_USER', payload: { ...userData, _id } as User })

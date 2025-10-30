@@ -1,4 +1,4 @@
-import type { AddUserFormData } from '@/schemas/userFormSchema'
+import type { UserFormData } from '@/schemas/userFormSchema'
 import type { User } from '@/types/user'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
@@ -33,7 +33,7 @@ const defaultValues = {
 interface UserFormDialogProps {
   open: boolean
   onClose: () => void
-  onSave: (data: AddUserFormData, id?: string) => void
+  onSave: (data: UserFormData, id?: string) => void
   // Optional user object signals EDIT mode
   userToEdit?: User | null
 }
@@ -85,7 +85,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
     }
   }, [userToEdit, open, reset])
 
-  const onSubmit = (data: AddUserFormData) => {
+  const onSubmit = (data: UserFormData) => {
     // Pass the data and the user ID (if editing) to the onSave handler
     onSave(data, userToEdit?._id)
     onClose()
