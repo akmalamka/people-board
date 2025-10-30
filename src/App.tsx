@@ -1,6 +1,6 @@
 import type { AddUserFormData } from '@/schemas/userFormSchema'
 import type { User } from '@/types/user'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, LinearProgress, Typography } from '@mui/material'
 import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import UserList from '@/components/UserList'
@@ -9,11 +9,10 @@ import { useUser } from '@/context/userContext'
 import UserFormDialog from './components/UserFormDialog'
 
 export default function App() {
-  const { dispatch } = useUser()
+  const { users, loading, dispatch } = useUser()
   const { showToast } = useToast()
 
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false)
-
   const [currentUserToEdit, setCurrentUserToEdit] = useState<User | null>(null)
 
   const handleOpenAddDialog = () => {
@@ -44,16 +43,42 @@ export default function App() {
     }
     handleCloseFormDialog()
   }
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          p: 4,
+        }}
+      >
+        <Typography variant="h6" color="textSecondary" sx={{ mb: 2 }}>
+          Loading User Directory...
+        </Typography>
+        <LinearProgress sx={{ width: '80%', maxWidth: '600px' }} color="primary" />
+      </Box>
+    )
+  }
+
   return (
     <>
       <Navbar onAddClick={handleOpenAddDialog} />
       <Box sx={{ p: 4 }}>
         <Container sx={{ py: 4 }}>
           <Typography variant="h4" fontWeight={700} mb={3}>
-            User Directory
+            User Directory (
+            {users.length}
+            {' '}
+            Users)
           </Typography>
 
-          <UserList onEditClick={handleOpenEditDialog} />
+          <UserList
+            onEditClick={handleOpenEditDialog}
+          />
         </Container>
       </Box>
 
