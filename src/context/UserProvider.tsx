@@ -25,7 +25,6 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       const apiUsers = await response.json() as User[]
 
       dispatch({ type: 'SET_USERS', payload: apiUsers })
-      showToast('Success')
     }
     catch (error) {
       console.error('Failed to fetch initial users:', error)

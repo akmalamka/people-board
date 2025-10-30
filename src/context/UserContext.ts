@@ -15,7 +15,7 @@ export type UserAction
     | { type: 'CLEAR_SELECTION' }
     | { type: 'ADD_USER', payload: AddUserFormData }
     | { type: 'EDIT_USER', payload: User }
-    | { type: 'DELETE_USER', payload: string } // id of the user to be deleted
+    | { type: 'DELETE_USER', payload: string } // _id of the user to be deleted
 
 export interface UserContextProps extends UserState {
   dispatch: React.Dispatch<UserAction>
@@ -29,6 +29,11 @@ export const initialUserState: UserState = {
 
 // Using 'undefined' as default value forces consumers to be wrapped in the Provider
 export const UserContext = createContext<UserContextProps | undefined>(undefined)
+
+// Helper function to generate a simple numeric ID for PICSUM seed only. We'll use a random number for the seed to keep things simple and unique.
+function getRandomImageSeed(): number {
+  return Math.floor(Math.random() * 100000)
+}
 
 export function userReducer(state: UserState, action: UserAction): UserState {
   switch (action.type) {
@@ -45,14 +50,16 @@ export function userReducer(state: UserState, action: UserAction): UserState {
       return { ...state, selectedUser: null }
 
     case 'ADD_USER': {
-      const newUser = {
-        ...action.payload,
-        image: `https://picsum.photos/seed/200/300.webp`,
+      const imageSeed = getRandomImageSeed()
 
+      const newUser: User = {
+        ...action.payload,
+        image: `https://picsum.photos/seed/${imageSeed}/200/300.webp`,
       } as User
+
       return {
         ...state,
-        users: [...state.users, newUser],
+        users: [newUser, ...state.users],
       }
     }
 
