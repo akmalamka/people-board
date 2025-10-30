@@ -45,7 +45,7 @@ export default function UserCard({ user, onView, onEdit, onDelete }: UserCardPro
           {user.email}
         </Typography>
         <Typography variant="body2" className="mt-1 text-gray-600">
-          {user.company?.name}
+          {user.companyName}
         </Typography>
       </CardContent>
 
