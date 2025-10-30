@@ -4,8 +4,8 @@ import { useState } from 'react'
 import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
 import UserCard from '@/components/UserCard'
 import UserDetailDialog from '@/components/UserDetailDialog'
-import { useToast } from '@/context/toastContext'
-import { useUser } from '@/context/userContext'
+import { useToast } from '@/context/ToastContext'
+import { useUser } from '@/context/UserContext'
 
 interface UserListProps {
   onEditClick: (user: User) => void

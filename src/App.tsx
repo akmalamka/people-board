@@ -4,9 +4,9 @@ import { Box, Container, LinearProgress, Typography } from '@mui/material'
 import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import UserList from '@/components/UserList'
-import { useToast } from '@/context/toastContext'
-import { useUser } from '@/context/userContext'
 import UserFormDialog from './components/UserFormDialog'
+import { useToast } from './context/ToastContext'
+import { useUser } from './context/UserContext'
 
 export default function App() {
   const { users, loading, dispatch } = useUser()

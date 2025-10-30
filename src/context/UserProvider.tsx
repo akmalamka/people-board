@@ -2,8 +2,8 @@ import type { FC } from 'react'
 import type { User } from '@/types/user'
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import { USERS_API_ENDPOINT } from '@/constants/api'
-import { useToast } from './toastContext'
-import { initialUserState, UserContext, userReducer } from './userContext'
+import { useToast } from './ToastContext'
+import { initialUserState, UserContext, userReducer } from './UserContext'
 
 interface UserProviderProps {
   children: React.ReactNode
