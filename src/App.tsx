@@ -5,12 +5,13 @@ import Container from '@mui/material/Container'
 import LinearProgress from '@mui/material/LinearProgress'
 import Typography from '@mui/material/Typography'
 
-import { useState } from 'react'
+import { lazy, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import UserList from '@/components/UserList'
-import UserFormDialog from './components/dialog/UserFormDialog'
 import { useToast } from './context/toast/ToastContext'
 import { useUser } from './context/user/UserContext'
+
+const LazyUserFormDialog = lazy(() => import('./components/dialog/UserFormDialog'))
 
 export default function App() {
   const { loading, dispatch } = useUser()
@@ -87,7 +88,7 @@ export default function App() {
         </Container>
       </Box>
 
-      <UserFormDialog
+      <LazyUserFormDialog
         open={isFormDialogOpen}
         onClose={handleCloseFormDialog}
         onSave={handleSaveUser}

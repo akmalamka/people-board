@@ -1,11 +1,12 @@
 import type { User } from '@/types/user'
 import Grid from '@mui/material/Grid'
-import { useState } from 'react'
-import DeleteConfirmationDialog from '@/components/dialog/DeleteConfirmationDialog'
-import UserDetailDialog from '@/components/dialog/UserDetailDialog'
+import { lazy, useState } from 'react'
 import UserCard from '@/components/UserCard'
 import { useToast } from '@/context/toast/ToastContext'
 import { useUser } from '@/context/user/UserContext'
+
+const LazyDeleteConfirmationDialog = lazy(() => import('@/components/dialog/DeleteConfirmationDialog'))
+const LazyUserDetailDialog = lazy(() => import('@/components/dialog/UserDetailDialog'))
 
 interface UserListProps {
   onEditClick: (user: User) => void
@@ -66,14 +67,14 @@ export default function UserList({ onEditClick }: UserListProps) {
         ))}
       </Grid>
 
-      <UserDetailDialog
+      <LazyUserDetailDialog
         user={selectedUser}
         open={Boolean(selectedUser)}
         onClose={handleCloseDetail}
         onEdit={handleEdit}
       />
 
-      <DeleteConfirmationDialog
+      <LazyDeleteConfirmationDialog
         user={userToDelete}
         open={openDeleteDialog}
         onClose={handleCloseDelete}
