@@ -1,9 +1,9 @@
 import type { User } from '@/types/user'
 import Grid from '@mui/material/Grid'
 import { useState } from 'react'
-import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
+import DeleteConfirmationDialog from '@/components/dialog/DeleteConfirmationDialog'
+import UserDetailDialog from '@/components/dialog/UserDetailDialog'
 import UserCard from '@/components/UserCard'
-import UserDetailDialog from '@/components/UserDetailDialog'
 import { useToast } from '@/context/toast/ToastContext'
 import { useUser } from '@/context/user/UserContext'
 

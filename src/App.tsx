@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import UserList from '@/components/UserList'
-import UserFormDialog from './components/UserFormDialog'
+import UserFormDialog from './components/dialog/UserFormDialog'
 import { useToast } from './context/toast/ToastContext'
 import { useUser } from './context/user/UserContext'
 
@@ -71,7 +71,6 @@ export default function App() {
   return (
     <>
       <Navbar onAddClick={handleOpenAddDialog} />
-      <p>Welcome!</p>
       <Box sx={{ p: 4 }}>
         <Container sx={{ py: 4 }}>
           <Typography variant="h4" fontWeight={700} mb={3} data-testid="user-display">

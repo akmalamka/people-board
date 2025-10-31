@@ -6,6 +6,7 @@ import SatoshiMedium from '@/assets/fonts/Satoshi-Medium.woff2'
 import SatoshiRegular from '@/assets/fonts/Satoshi-Regular.woff2'
 
 const baseTheme = createTheme({
+  // TODO: add typography styling to make it looks better
   palette: {
     mode: 'light', // light theme only
     primary: {
