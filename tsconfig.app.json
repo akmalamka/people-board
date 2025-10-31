@@ -16,7 +16,7 @@
         "./src/*"
       ]
     },
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom/vitest"],
     "allowImportingTsExtensions": true,
 
     /* Linting */

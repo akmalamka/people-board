@@ -1,8 +1,8 @@
 import { cleanup } from '@testing-library/react'
 import { afterEach, beforeAll } from 'vitest'
 import { resetContextMocks } from '../tests/mocks/contextMocks'
-
 import { restoreMathRandom, stubMathRandom } from '../tests/mocks/globalMocks'
+
 import '@testing-library/jest-dom/vitest'
 
 /**
