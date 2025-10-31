@@ -9,6 +9,7 @@ import { UserProvider } from '@/context/user/UserProvider'
 import App from './App'
 import theme from './theme.ts'
 import './index.css'
+// TODO: split chunks for performance
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

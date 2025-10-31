@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# 👥 PeopleBoard: User Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PeopleBoard is a simple, modern front-end application designed for managing a user directory. It allows users to perform basic CRUD (Create, Read, Update, Delete) operations on a list of user records.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Technologies
 
-## React Compiler
+This project is built using a modern React stack for a fast, component-driven experience:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+* **Framework:** React (Vite)
+* **UI Library:** **Material UI (MUI)** for professional, polished components.
+* **Styling:** **Tailwind CSS** for utility-first, rapid styling.
+* **State Management:** **React Context** (UserContext, ToastContext) for application-level state.
+* **Testing:** **Vitest / React Testing Library** for robust unit and integration tests.
+* **API Simulation:** **crudcrud.com** (Temporary Mock API).
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Setup and Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+To get the PeopleBoard application running locally, follow these steps:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/akmalamka/people-board.git
+    cd people-board
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2.  **Install Dependencies:**
+    This project uses `pnpm` as the package manager.
+    ```bash
+    pnpm install
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3.  **Run the Application (Development Mode):**
+    ```bash
+    pnpm dev
+    ```
+    The application will typically open at `http://localhost:5173`.
+
+---
+
+## 🧪 Running Tests
+
+To ensure code stability and integrity, run the automated tests:
+
+```bash
+pnpm test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚠️ Important Note on Mock API (`crudcrud.com`)
 
-```js
-import reactDom from 'eslint-plugin-react-dom'
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
+This application uses a mock REST API endpoint from `crudcrud.com` for the initial data read operation (`R` in CRUD).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* **API Data Usage:** The application only uses this API to **retrieve the initial list of users**.
+* **Data Persistence:** Once the data is loaded, all subsequent state changes (Add, Edit, Delete) are managed locally within **React Context**. These operations **do not sync back** to the external `crudcrud.com` API, as per project requirements.
+* **Expiration:** **crucrud.com endpoints are temporary and typically last for 10 days.** If the application fails to load initial data, the API endpoint is likely expired. **If this happens, please let me know so I can update the endpoint in the configuration.**
