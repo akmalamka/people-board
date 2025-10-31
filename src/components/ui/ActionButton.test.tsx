@@ -13,7 +13,7 @@ describe('actionButton', () => {
     mockOnClick.mockClear()
   })
 
-  it('✅ Renders the label and icon, and passes through standard props', () => {
+  it('renders the label and icon, and passes through standard props', () => {
     render(
       <ActionButton
         label={testLabel}
@@ -32,7 +32,7 @@ describe('actionButton', () => {
     expect(buttonElement).toHaveClass('MuiButton-outlined') // Check variant prop
   })
 
-  it('✅ Calls the onClick handler when the button is clicked', () => {
+  it('calls the onClick handler when the button is clicked', () => {
     render(
       <ActionButton
         label={testLabel}

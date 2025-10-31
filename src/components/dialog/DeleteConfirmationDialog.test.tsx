@@ -25,13 +25,13 @@ describe('deleteConfirmationDialog', () => {
     mockOnConfirm.mockClear()
   })
 
-  it('✅ Renders the title and the correct description text with the user name', () => {
+  it('renders the title and the correct description text with the user name', () => {
     renderOpenDialog()
 
     expect(screen.getByText('Confirm Deletion')).toBeInTheDocument()
   })
 
-  it('✅ Calls onClose when the "Cancel" button is clicked', () => {
+  it('calls onClose when the "Cancel" button is clicked', () => {
     renderOpenDialog()
 
     const cancelButton = screen.getByRole('button', { name: /Cancel/i })
@@ -41,7 +41,7 @@ describe('deleteConfirmationDialog', () => {
     expect(mockOnConfirm).not.toHaveBeenCalled()
   })
 
-  it('✅ Calls onConfirm when the "Delete" button is clicked', () => {
+  it('calls onConfirm when the "Delete" button is clicked', () => {
     renderOpenDialog()
 
     const deleteButton = screen.getByRole('button', { name: /Delete/i })
