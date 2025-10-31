@@ -5,8 +5,8 @@ import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import UserList from '@/components/UserList'
 import UserFormDialog from './components/UserFormDialog'
-import { useToast } from './context/ToastContext'
-import { useUser } from './context/UserContext'
+import { useToast } from './context/toast/ToastContext'
+import { useUser } from './context/user/UserContext'
 
 export default function App() {
   const { users, loading, dispatch } = useUser()

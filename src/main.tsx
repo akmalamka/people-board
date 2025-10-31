@@ -1,9 +1,9 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ToastProvider } from '@/context/ToastProvider.tsx'
-import { UserProvider } from '@/context/UserProvider.tsx'
-import App from './App.tsx'
+import { ToastProvider } from '@/context/toast/ToastProvider'
+import { UserProvider } from '@/context/user/UserProvider'
+import App from './App'
 import theme from './theme.ts'
 import './index.css'
 
