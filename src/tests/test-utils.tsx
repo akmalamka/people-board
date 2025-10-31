@@ -1,5 +1,3 @@
-// src/testing/test-utils.tsx
-
 import type { RenderOptions } from '@testing-library/react'
 import type { ReactElement } from 'react'
 import type { ToastContextProps } from '@/context/toast/ToastContext'
@@ -25,15 +23,14 @@ function CustomProviders({ children, toastValue, userValue }: {
   userValue?: Partial<UserContextProps>
 }) {
   // Merge default mocks with any provided overrides
+
   // eslint-disable-next-line react/no-unstable-context-value
   const finalToastValue = { ...mockToastContext, ...toastValue } as ToastContextProps
   // eslint-disable-next-line react/no-unstable-context-value
   const finalUserValue = { ...mockUserContext, ...userValue } as UserContextProps
 
   return (
-    // Wrap with the UserContext Provider
     <UserContext value={finalUserValue}>
-      {/* Wrap with the ToastContext Provider */}
       <ToastContext value={finalToastValue}>
         {children}
       </ToastContext>
