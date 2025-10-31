@@ -32,7 +32,6 @@ export default function ActionButton({ label, icon, ...props }: ActionButtonProp
         },
       }}
     >
-      {/* TODO: find workaround NOT to add span */}
       <span>
         {label}
       </span>
