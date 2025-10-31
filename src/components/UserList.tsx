@@ -1,11 +1,11 @@
 import type { User } from '@/types/user'
-import { Grid } from '@mui/material'
+import Grid from '@mui/material/Grid'
 import { useState } from 'react'
 import DeleteConfirmationDialog from '@/components/DeleteConfirmationDialog'
 import UserCard from '@/components/UserCard'
 import UserDetailDialog from '@/components/UserDetailDialog'
 import { useToast } from '@/context/toast/ToastContext'
-import { useUser } from '@/context/UserContext'
+import { useUser } from '@/context/user/UserContext'
 
 interface UserListProps {
   onEditClick: (user: User) => void

@@ -2,7 +2,12 @@ import type { User } from '@/types/user'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { Card, CardActions, CardContent, CardMedia, Stack, Typography } from '@mui/material'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import ActionButton from '@/components/ui/ActionButton'
 
 interface UserCardProps {

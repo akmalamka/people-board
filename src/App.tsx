@@ -1,6 +1,10 @@
 import type { UserFormData } from '@/schemas/userFormSchema'
 import type { User } from '@/types/user'
-import { Box, Container, LinearProgress, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import LinearProgress from '@mui/material/LinearProgress'
+import Typography from '@mui/material/Typography'
+
 import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import UserList from '@/components/UserList'
@@ -9,7 +13,7 @@ import { useToast } from './context/toast/ToastContext'
 import { useUser } from './context/user/UserContext'
 
 export default function App() {
-  const { users, loading, dispatch } = useUser()
+  const { loading, dispatch } = useUser()
   const { showToast } = useToast()
 
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false)
@@ -67,13 +71,11 @@ export default function App() {
   return (
     <>
       <Navbar onAddClick={handleOpenAddDialog} />
+      <p>Welcome!</p>
       <Box sx={{ p: 4 }}>
         <Container sx={{ py: 4 }}>
-          <Typography variant="h4" fontWeight={700} mb={3}>
-            User Directory (
-            {users.length}
-            {' '}
-            Users)
+          <Typography variant="h4" fontWeight={700} mb={3} data-testid="user-display">
+            User Directory
           </Typography>
 
           <UserList

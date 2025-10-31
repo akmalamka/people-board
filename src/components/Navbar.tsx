@@ -1,5 +1,10 @@
-import { PersonAdd } from '@mui/icons-material'
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
+import PersonAdd from '@mui/icons-material/PersonAdd'
+
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
 interface NavbarProps {
   onAddClick: () => void

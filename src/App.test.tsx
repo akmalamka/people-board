@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
+import App from './App'
+import { render, screen } from './tests/test-utils'
 
-describe('something truthy and falsy', () => {
-  it('true to be true', () => {
-    expect(true).toBe(true)
-  })
+describe('app Component Integration Test', () => {
+  it('✅ Renders App component with the default mocked user data', () => {
+    render(<App />)
 
-  it('false to be false', () => {
-    expect(false).toBe(false)
+    expect(screen.getByTestId('user-display')).toHaveTextContent('User Directory')
   })
 })

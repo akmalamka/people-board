@@ -1,7 +1,8 @@
 import type { AlertColor } from '@mui/material/Alert'
 import type { FC } from 'react'
 import type { ToastState } from './ToastContext'
-import { Alert, Snackbar } from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
 import { useCallback, useMemo, useState } from 'react'
 import { initialToastState, ToastContext } from './ToastContext'
 
