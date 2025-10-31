@@ -73,7 +73,11 @@ export default function App() {
       <Navbar onAddClick={handleOpenAddDialog} />
       <Box sx={{ p: 4 }}>
         <Container sx={{ py: 4 }}>
-          <Typography variant="h4" fontWeight={700} mb={3} data-testid="user-display">
+          <Typography
+            variant="h1"
+            mb={3}
+            data-testid="user-display"
+          >
             User Directory
           </Typography>
 

@@ -32,31 +32,35 @@ export default function UserDetailDialog({ user, open, onClose, onEdit }: UserDe
       </DialogTitle>
       <DialogContent dividers>
         <Box>
-          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+
+          <Typography variant="subtitle1">
             Email:
             {' '}
-            <Box component="span" sx={{ fontWeight: 'normal' }}>{user.email}</Box>
+            <Box component="span">{user.email}</Box>
           </Typography>
-          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="subtitle1">
             Phone:
             {' '}
-            <Box component="span" sx={{ fontWeight: 'normal' }}>{user.phone}</Box>
+            <Box component="span">{user.phone}</Box>
           </Typography>
-          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="subtitle1">
             Website:
             {' '}
-            <Box component="span" sx={{ fontWeight: 'normal' }}>{user.website}</Box>
+            <Box component="span">{user.website}</Box>
           </Typography>
 
-          <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold' }}>
+          <Typography variant="subtitle1" sx={{ mt: 2 }}>
             Company Name:
             {' '}
-            {user.companyName}
+            <Box component="span" sx={{ fontWeight: 'normal' }}>
+              {user.companyName}
+            </Box>
           </Typography>
 
-          <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold' }}>
+          <Typography variant="subtitle1" sx={{ mt: 2 }}>
             Address:
           </Typography>
+
           <Typography variant="body2">
             {user.address?.street}
             ,

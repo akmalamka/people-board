@@ -16,7 +16,7 @@ interface UserCardProps {
   onEdit?: (user: User) => void
   onDelete?: (user: User) => void
 }
-// TODO: convert to styled components
+
 export default function UserCard({ user, onView, onEdit, onDelete }: UserCardProps) {
   return (
     <Card
@@ -36,7 +36,6 @@ export default function UserCard({ user, onView, onEdit, onDelete }: UserCardPro
       <CardContent className="flex flex-col items-center text-center">
         <Typography
           variant="h6"
-          fontWeight={600}
           sx={{
             overflow: 'hidden',
             whiteSpace: 'nowrap',
@@ -46,10 +45,15 @@ export default function UserCard({ user, onView, onEdit, onDelete }: UserCardPro
         >
           {user.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+        >
           {user.email}
         </Typography>
-        <Typography variant="body2" className="mt-1 text-gray-600">
+        <Typography
+          variant="body2"
+          className="mt-1"
+        >
           {user.companyName}
         </Typography>
       </CardContent>

@@ -26,12 +26,11 @@ export default function Navbar({ onAddClick }: NavbarProps) {
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Typography
-              variant="h6"
+              variant="h5"
+              color="primary"
               noWrap
               sx={{
                 fontWeight: 700,
-                fontSize: { xs: '1.1rem', md: '1.25rem' },
-                color: 'primary.main',
               }}
             >
               PeopleBoard

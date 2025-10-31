@@ -108,7 +108,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
       <DialogContent dividers>
         <Box display="flex" flexDirection="column" gap={2}>
 
-          <Typography variant="subtitle1" fontWeight="bold" mt={1}>
+          <Typography variant="subtitle1" mt={1}>
             Basic Information
           </Typography>
 
@@ -188,7 +188,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
             )}
           />
 
-          <Typography variant="subtitle1" fontWeight="bold" mt={2}>
+          <Typography variant="subtitle1" mt={2}>
             Address (Optional)
           </Typography>
 
@@ -252,7 +252,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
             />
           </Box>
 
-          <Typography variant="subtitle1" fontWeight="bold" mt={2}>
+          <Typography variant="subtitle1" mt={2}>
             Company Details (Optional)
           </Typography>
 
@@ -271,7 +271,7 @@ export default function UserFormDialog({ open, onClose, onSave, userToEdit }: Us
             )}
           />
 
-          <Typography variant="body2" color="text.secondary" mt={2}>
+          <Typography variant="body2" mt={2}>
             *Upon adding new user, profile image will be set to a static, unique and random placeholder*
           </Typography>
 
